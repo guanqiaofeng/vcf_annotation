@@ -1,0 +1,94 @@
+<!--
+  ~ Copyright 2013-2023, Seqera Labs
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<html>
+<head>
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+<pre class="mermaid" style="text-align: center;">
+flowchart TB
+    subgraph " "
+    v2["Channel.from"]
+    end
+    subgraph NFCORE_VCFANN
+    subgraph VCFANN
+    subgraph STAGE_INPUT
+    subgraph SONG_SCORE_DOWNLOAD
+    v5([songGet])
+    v8([scoreDn])
+    v3(( ))
+    v7(( ))
+    end
+    v13([PREP_SAMPLE])
+    v20([BAM_INDEX])
+    v24([CRAM_INDEX])
+    v28([TABIX_TABIX])
+    v15(( ))
+    end
+    end
+    end
+    subgraph " "
+    v6["analysis_json"]
+    v9["files"]
+    v10["analysis"]
+    v21[" "]
+    v22[" "]
+    v23[" "]
+    v25[" "]
+    v26[" "]
+    v27[" "]
+    v29[" "]
+    v30[" "]
+    v40["meta_files"]
+    v43["meta_analysis"]
+    v45["ch_versions"]
+    end
+    v2 --> v3
+    v3 --> v5
+    v5 --> v8
+    v5 --> v6
+    v5 --> v7
+    v8 --> v10
+    v8 --> v9
+    v8 --> v13
+    v8 --> v7
+    v13 --> v7
+    v13 --> v15
+    v15 --> v20
+    v20 --> v23
+    v20 --> v22
+    v20 --> v21
+    v20 --> v15
+    v15 --> v24
+    v24 --> v27
+    v24 --> v26
+    v24 --> v25
+    v24 --> v15
+    v15 --> v28
+    v28 --> v30
+    v28 --> v29
+    v28 --> v15
+    v15 --> v40
+    v15 --> v43
+    v7 --> v45
+
+</pre>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+</body>
+</html>

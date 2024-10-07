@@ -1,0 +1,149 @@
+{
+    "name": "nf-core/vcfannotation",
+    "homePage": "https://github.com/nf-core/vcfannotation",
+    "repos": {
+        "https://github.com/icgc-argo-workflows/argo-modules.git": {
+            "modules": {
+                "icgc-argo-workflows": {
+                    "checkinput": {
+                        "branch": "main",
+                        "git_sha": "179d4f935d469c3b4a61b9b73d3a69274343fcf0",
+                        "installed_by": [
+                            "stage_input"
+                        ]
+                    },
+                    "prep/sample": {
+                        "branch": "main",
+                        "git_sha": "19d2393fd88fca055be66cbd375c0147d43d9b7f",
+                        "installed_by": [
+                            "stage_input"
+                        ]
+                    },
+                    "samtools/index": {
+                        "branch": "main",
+                        "git_sha": "e1f2b946b457eac191c0fa97ae1d159a15874c6b",
+                        "installed_by": [
+                            "stage_input"
+                        ]
+                    },
+                    "score/download": {
+                        "branch": "main",
+                        "git_sha": "9790430f3f71990b5a5fadcb7cf169d11b8c93c7",
+                        "installed_by": [
+                            "song_score_download"
+                        ]
+                    },
+                    "score/upload": {
+                        "branch": "main",
+                        "git_sha": "9790430f3f71990b5a5fadcb7cf169d11b8c93c7",
+                        "installed_by": [
+                            "song_score_upload"
+                        ]
+                    },
+                    "song/get": {
+                        "branch": "main",
+                        "git_sha": "19ee48fdf1672ef9723e3093531be7ddea3e27ec",
+                        "installed_by": [
+                            "song_score_download"
+                        ]
+                    },
+                    "song/manifest": {
+                        "branch": "main",
+                        "git_sha": "19ee48fdf1672ef9723e3093531be7ddea3e27ec",
+                        "installed_by": [
+                            "song_score_upload"
+                        ]
+                    },
+                    "song/publish": {
+                        "branch": "main",
+                        "git_sha": "19ee48fdf1672ef9723e3093531be7ddea3e27ec",
+                        "installed_by": [
+                            "song_score_upload"
+                        ]
+                    },
+                    "song/submit": {
+                        "branch": "main",
+                        "git_sha": "19ee48fdf1672ef9723e3093531be7ddea3e27ec",
+                        "installed_by": [
+                            "song_score_upload"
+                        ]
+                    },
+                    "tabix/tabix": {
+                        "branch": "main",
+                        "git_sha": "e1f2b946b457eac191c0fa97ae1d159a15874c6b",
+                        "installed_by": [
+                            "stage_input"
+                        ]
+                    }
+                }
+            },
+            "subworkflows": {
+                "icgc-argo-workflows": {
+                    "song_score_download": {
+                        "branch": "main",
+                        "git_sha": "92aa620385099e94401c22b8633cc55ed34ca10e",
+                        "installed_by": [
+                            "stage_input",
+                            "subworkflows"
+                        ]
+                    },
+                    "song_score_upload": {
+                        "branch": "main",
+                        "git_sha": "92aa620385099e94401c22b8633cc55ed34ca10e",
+                        "installed_by": [
+                            "subworkflows"
+                        ]
+                    },
+                    "stage_input": {
+                        "branch": "main",
+                        "git_sha": "19d2393fd88fca055be66cbd375c0147d43d9b7f",
+                        "installed_by": [
+                            "subworkflows"
+                        ]
+                    }
+                }
+            }
+        },
+        "https://github.com/nf-core/modules.git": {
+            "modules": {
+                "nf-core": {
+                    "custom/dumpsoftwareversions": {
+                        "branch": "master",
+                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    },
+                    "ensemblvep/vep": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    },
+                    "fastqc": {
+                        "branch": "master",
+                        "git_sha": "c9488585ce7bd35ccd2a30faa2371454c8112fb9",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    },
+                    "multiqc": {
+                        "branch": "master",
+                        "git_sha": "8ec825f465b9c17f9d83000022995b4f7de6fe93",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    },
+                    "snpeff/snpeff": {
+                        "branch": "master",
+                        "git_sha": "666652151335353eef2fcd58880bcef5bc2928e1",
+                        "installed_by": [
+                            "modules"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

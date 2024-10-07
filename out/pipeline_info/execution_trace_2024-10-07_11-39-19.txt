@@ -1,0 +1,2 @@
+task_id	hash	native_id	name	status	exit	submit	duration	realtime	%cpu	peak_rss	peak_vmem	rchar	wchar
+1	f9/44c8ce	8791	NFCORE_VCFANN:VCFANN:STAGE_INPUT:SONG_SCORE_DOWNLOAD:songGet (d52da6eb-e526-487c-ada6-ebe526d87cc2)	FAILED	1	2024-10-07 11:39:21.047	6.9s	6.9s	-	-	-	-	-
