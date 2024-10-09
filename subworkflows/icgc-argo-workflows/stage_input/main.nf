@@ -12,7 +12,7 @@ workflow STAGE_INPUT {
     study_id // channel: study_id
     analysis_ids // channel: analysis_ids
     samplesheet  // channel: samplesheet
-    
+
     main:
     ch_versions = Channel.empty()
 
@@ -66,77 +66,77 @@ workflow STAGE_INPUT {
        if (row.analysis_type == "sequencing_experiment" && row.single_end.toLowerCase() == 'false' && row.experiment == "RNA-Seq") {
          tuple([
            analysis_type : row.analysis_type,
-           id:"${row.sample}-${row.lane}".toString(), 
+           id:"${row.sample}-${row.lane}".toString(),
            study_id:row.study_id,
            patient:row.patient,
            sex:row.sex,
            status:row.status.toInteger(),
-           sample:row.sample, 
-           read_group:row.read_group.toString(), 
-           data_type:'fastq', 
+           sample:row.sample,
+           read_group:row.read_group.toString(),
+           data_type:'fastq',
            numLanes:row.read_group_count,
            experiment:row.experiment,
            single_end : row.single_end.toBoolean(),
            library_strandedness : row.library_strandedness
-           ], 
+           ],
            [file(row.fastq_1,checkIfExists: true), file(row.fastq_2,checkIfExists: true)],
            row.analysis_json
            )
        } else if (row.analysis_type == "sequencing_experiment" && row.single_end.toLowerCase() == 'true' && row.experiment == "RNA-Seq") {
          tuple([
            analysis_type : row.analysis_type,
-           id:"${row.sample}-${row.lane}".toString(), 
+           id:"${row.sample}-${row.lane}".toString(),
            study_id:row.study_id,
            patient:row.patient,
            sex:row.sex,
            status:row.status.toInteger(),
-           sample:row.sample, 
-           read_group:row.read_group.toString(), 
-           data_type:'fastq', 
+           sample:row.sample,
+           read_group:row.read_group.toString(),
+           data_type:'fastq',
            numLanes:row.read_group_count,
            experiment:row.experiment,
            single_end : row.single_end.toBoolean(),
            library_strandedness : row.library_strandedness
-           ], 
+           ],
            [file(row.fastq_1,checkIfExists: true)],
            row.analysis_json
            )
        } else if (row.analysis_type == "sequencing_experiment" && row.single_end.toLowerCase() == 'false') {
          tuple([
            analysis_type : row.analysis_type,
-           id:"${row.sample}-${row.lane}".toString(), 
+           id:"${row.sample}-${row.lane}".toString(),
            study_id:row.study_id,
            patient:row.patient,
            sex:row.sex,
            status:row.status.toInteger(),
-           sample:row.sample, 
-           read_group:row.read_group.toString(), 
-           data_type:'fastq', 
+           sample:row.sample,
+           read_group:row.read_group.toString(),
+           data_type:'fastq',
            numLanes:row.read_group_count,
            experiment:row.experiment,
            single_end : row.single_end.toBoolean()
-           ], 
+           ],
            [file(row.fastq_1,checkIfExists: true), file(row.fastq_2,checkIfExists: true)],
            row.analysis_json
            )
        } else if (row.analysis_type == "sequencing_experiment" && row.single_end.toLowerCase() == 'true') {
          tuple([
            analysis_type : row.analysis_type,
-           id:"${row.sample}-${row.lane}".toString(), 
+           id:"${row.sample}-${row.lane}".toString(),
            study_id:row.study_id,
            patient:row.patient,
            sex:row.sex,
            status:row.status.toInteger(),
-           sample:row.sample, 
-           read_group:row.read_group.toString(), 
-           data_type:'fastq', 
+           sample:row.sample,
+           read_group:row.read_group.toString(),
+           data_type:'fastq',
            numLanes:row.read_group_count,
            experiment:row.experiment,
            single_end : row.single_end.toBoolean()
-           ], 
+           ],
            [file(row.fastq_1,checkIfExists: true)],
            row.analysis_json
-           ) 
+           )
       } else if (row.analysis_type == "sequencing_alignment") {
         tuple([
           analysis_type : row.analysis_type,
@@ -148,7 +148,7 @@ workflow STAGE_INPUT {
           status:row.status.toInteger(),
           genome_build:row.genome_build,
           experiment:row.experiment,
-          data_type: "${row.bam_cram}".replaceAll(/^.*\./,"").toLowerCase()], 
+          data_type: "${row.bam_cram}".replaceAll(/^.*\./,"").toLowerCase()],
           [file(row.bam_cram,checkIfExists: true), row.bai_crai],
           row.analysis_json
           )
@@ -157,12 +157,12 @@ workflow STAGE_INPUT {
         tuple([
           analysis_type : row.analysis_type,
           id:"${row.sample}".toString(),
-          study_id:row.study_id, 
+          study_id:row.study_id,
           patient:row.patient,
           sample:row.sample,
           sex:row.sex,
-          status:row.status.toInteger(), 
-          variantcaller:row.variantcaller, 
+        //   status:row.status.toInteger(),
+          variantcaller:row.variantcaller,
           genome_build:row.genome_build,
           experiment:row.experiment,
           data_type:'vcf'],
@@ -174,11 +174,11 @@ workflow STAGE_INPUT {
         tuple([
           analysis_type : row.analysis_type,
           id:"${row.sample}".toString(),
-          study_id:row.study_id, 
+          study_id:row.study_id,
           patient:row.patient,
           sample:row.sample,
           sex:row.sex,
-          status:row.status.toInteger(), 
+          status:row.status.toInteger(),
           qc_tools:row.qc_tools,
           genome_build:row.genome_build,
           experiment:row.experiment,
@@ -209,7 +209,7 @@ workflow STAGE_INPUT {
       vcf_to_index : it[0].analysis_type=='variant_calling' && it[2].isEmpty()
         return tuple([it[0],it[1]])
       indexed : (it[0].analysis_type=='sequencing_alignment' && ! it[2].isEmpty()) | (it[0].analysis_type=='variant_calling' && ! it[2].isEmpty())
-        return tuple([it[0],it[1],it[2]])      
+        return tuple([it[0],it[1],it[2]])
       others: (it[0].analysis_type=='sequencing_experiment') | (it[0].analysis_type=='qc_metrics')
         return tuple([it[0],it[1]])
     }.set{ch_index_split}
@@ -258,6 +258,6 @@ workflow STAGE_INPUT {
     meta_analysis = ch_meta_analysis // channel: [ val(meta), analysis_json]
     meta_files  = ch_meta_files      // channel: [ val(meta), [ files ] ]
     upRdpc = upRdpc_flag // [boolean]
-    
+
     versions = ch_versions                   // channel: [ versions.yml ]
 }
