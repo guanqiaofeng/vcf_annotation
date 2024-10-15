@@ -8,6 +8,7 @@ include { TABIX_TABIX            } from '../../../modules/nf-core/tabix/tabix/ma
 include { BCFTOOLS_PLUGINSCATTER } from '../../../modules/nf-core/bcftools/pluginscatter/main'
 include { BCFTOOLS_CONCAT        } from '../../../modules/nf-core/bcftools/concat/main'
 include { BCFTOOLS_SORT          } from '../../../modules/nf-core/bcftools/sort/main'
+include { TABIX_BGZIPTABIX       } from '../../../modules/nf-core/tabix/bgziptabix/main'
 
 workflow VCF_ANNOTATE_ENSEMBLVEP_SNPEFF {
     take:
@@ -119,8 +120,13 @@ workflow VCF_ANNOTATE_ENSEMBLVEP_SNPEFF {
         ch_snpeff_reports = SNPEFF_SNPEFF.out.report
         ch_snpeff_html    = SNPEFF_SNPEFF.out.summary_html
         ch_snpeff_genes   = SNPEFF_SNPEFF.out.genes_txt
+
+        TABIX_BGZIPTABIX(SNPEFF_SNPEFF.out.vcf)
+        ch_versions = ch_versions.mix(SNPEFF_SNPEFF.out.versions.first())
+
+        ch_snpeff_comp_output = TABIX_BGZIPTABIX.out.gz_tbi
     } else {
-        ch_snpeff_output  = ch_vep_output
+        ch_snpeff_comp_output  = ch_vep_output
         ch_snpeff_reports = Channel.empty()
         ch_snpeff_html    = Channel.empty()
         ch_snpeff_genes   = Channel.empty()
@@ -132,9 +138,9 @@ workflow VCF_ANNOTATE_ENSEMBLVEP_SNPEFF {
         // Concatenate the VCFs back together with bcftools concat
         //
 
-        ch_concat_input = ch_snpeff_output
+        ch_concat_input = ch_snpeff_comp_output
             .join(ch_scatter.count, failOnDuplicate:true, failOnMismatch:true)
-            .map { meta, vcf, id, count ->
+            .map { meta, vcf, index, id, count ->
                 new_meta = meta + [id:id]
                 [ groupKey(new_meta, count), vcf ]
             }
